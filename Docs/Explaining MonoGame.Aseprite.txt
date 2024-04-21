@@ -1,0 +1,28 @@
+Explaining MonoGame.Aseprite
+
+So like, In my AnimatedSprite.cs class , you'll see that there's a Texture2D variable called texture. 
+If you don't know already a Texture2D is how MonoGame represents 2D images. 
+The reason they don't use files directly has something to do with the GPU being able to draw textures faster. 
+Obviously we're not gonna manually declare and assign files to Texture2Ds for every sprite in a game
+and AnimatedSprite.cs kinda shows an example of how to do this already. It changes the section
+of the spritesheet that's being drawn in Update() so that Draw() only has to use one Texture2D variable. 
+
+What MonoGame.Aseprite does is allow you to create these objects called Sprites from an AsepriteFile object 
+using ... drumroll pleasee.... AsepriteFile.CreateSprite(int frameindex: blah blah blah);. and like a Sprite
+also just has a Texture2D inside it but it has other data like a name and and an origin point which can be useful.
+
+
+You can create other objects as well such as an AnimatedSprite which is like my AnimatedSprite.cs class but
+literally better in every way. 
+
+MonoGame.Aseprite is like super convinient if you're using Aseprite because it means I don't have to copy Alex and create json files for my pngs. 
+If someone makes art using something else then like i can just save it as an aseprite file if i want to. 
+
+I'm not really sure how much of the library I should explain cuz like the creator made documentation 
+that's like pretty good. 
+
+documentation: https://monogameaseprite.net/guides/getting-started/installation.html?tabs=net-cli
+
+
+
+

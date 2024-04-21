@@ -62,7 +62,7 @@ namespace EntityZero
 			_graphics.PreferredBackBufferHeight =  540;
 			_graphics.ApplyChanges();
 
-			//Window.AllowUserResizing = true;
+			//Window.AllowUserResizing = true;                    I love how classes make code look like english sometimes. - Noel
 
 			Globals = new Globals();	
 
@@ -173,6 +173,7 @@ namespace EntityZero
 
 			
 			//collidables.Draw(_spriteBatch, GraphicsDevice);
+
 			_spriteBatch.Draw(backgroundSprite, Vector2.Zero, Color.White);
 			player.Draw(_spriteBatch);
 			quote.Draw(_spriteBatch);

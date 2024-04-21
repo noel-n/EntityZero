@@ -1,0 +1,36 @@
+How a MonoGame Project Works
+
+So like, when you make a new MonoGame project you'll see a bunch of different folders and some c#
+files: Program.cs which is literally just there to run the game and Game1.cs which has the actual
+game logic.
+
+The "Getting Started" part of the MonoGame documentation actually covers what all the functions 
+in Game1.cs do but I'm gonna try to explain how each of them works though I don't know EVERYTHING 
+about them just yet.  
+
+* The Game1() constructor is pretty self-explanatory. It'll run code when a new instance of Game1 is
+created in Program.cs and what it does by default is to create a new GraphicsDeviceManager which sorta represents
+the GPU of the system from what I understand. It also makes the root directory for content the "Content" folder.
+I'll explain how content works when I talk about the LoadContent() method. From what I've seen so far,
+people also write code to configure the game window in the constructor. My EntityZero project sets the window width and height.
+
+*  The Initialize() method is like the  Start() method in Unity if you're familiar. It's called once when the game starts and never again. 
+
+* The LoadContent() method is where you're meant to load stuff from the content folder into the game. MonoGame has this system called the content pipeline 
+which you don't have to use but basically you put all your files in the Content folder then add them to the Content.mgcb file by editing it and after you do that
+ your game will be able to use those files faster.  
+There's ways to get your assets directly from files if you don't wanna keep managing that Content.mgcb file. 
+I also use LoadContent as like the real Start() method of EntityZero since alot of content wouldn't have actuallty exist if I wrote all my code in Initialize()
+
+* The Update() is called once per frame just like unity and my neco arc thing and it updates your game logic. 
+
+* The Draw() method is also called once per frame and it draws stuff each frame. 
+You're not meant to keep any actual game logic in the draw function just drawing code. 
+If that doesn't make sense at first then think of it like this: Each thing in the game will have its own Update and Draw methods and what you do is to just call those methods in the right places in Game1. 
+Also, Draw() is called after Update() so for things like animations what you can do is Update the texture to be drawn in Update() then draw that texture in Draw() by passing it into a draw call 
+like this-  SpriteBatch.Draw(Texture2D yourTextureName, Vector2.Zero); 
+Vector2.Zero is shorthand for (0,0). 
+
+*I have an example of this in my AnimatedSprite.cs class which I actually got from a tutorial:
+http://rbwhitaker.wikidot.com/monogame-2d-tutorials
+
