@@ -1,0 +1,56 @@
+Explaining Tilemap.cs 
+
+So like, for organisation purposes I just wanted to have the tile system be in its on 
+namespace so I made a folder called Tiles for it. Now all the tiles code is in 
+EntityZero.Tiles and like Game1.cs has a using EntityZero.Tiles; at the start.
+
+Another reason I did it this way is so that I could use this code in another tile based game.
+I could make it into a nuget package or something. Not quite sure how to use it without 
+copy pasting anything.  
+
+Anyway, now I'm, gonna explain the actual file. 
+
+One instance of Tilemap represents a grid of either visual or logical tiles(but not both) that exists in a scene. 
+
+The first thing in the Tilemap class is a MonoGame.Aseprite TextureAtlas. This is one 
+of the objects you can create from an AsepriteFile and you do it using AsepriteFile.CreateTextureAtlas().
+It's called tilesetFile and its meant to represent our tileset image. 
+
+I used a Point for the tile size incase I ever wanted rectangular tiles. A point is just a struct with two ints called x and y, it's alot like a Unity Vector2 but ints instead of floats.
+
+After that is a jagged array of rectangles called tilesGrid. It's basically an array of array of rectangles 
+which represents the "logical" tiles which may not necessarily have sprites attached to them.
+The reason I did it like this is because I might want tiles to just have sprites without any logic attached to them.  
+
+
+Next is the Tilemap constructor on line 32 , It has two parameters to set the AsepriteFile and the tile size 
+for that instance. 
+
+
+Now for the functions, starting with createTileset()  which turns the tileset's AsepriteFile into an array of Sprites for the DrawSprites() function to use. 
+
+CreateTilesGrid() takes a jagged array of strings and creates an appropriate rectangle when the 
+string is "1". You're meant to get this jagged array from an instance of OgmoFile.cs. 
+I'll explain more in the "Explaining OgmoFile.cs" txt. 
+
+DrawSprites() takes a jagged array of integers and a _spriteBatch to draw stuff with. It reads the int array 
+and like , the values in the int array will match an index in the tileset[] array because of the way OGMO works. The first tile in an OGMO tileset creates a 0 in the data2d array for that layer, the 2nd sprite creates 1 and so on. empty space in a layer is automatically a -1 and like you can't use a negative number as an index. tileset[-1] makes no sense.  
+ 
+Just remember that you have to use the same tileset in OGMO as the one you have in the game so everything matches up correctly. 
+
+The last thing is the Draw() function which I made whenever you want to see your non-visual tiles while testing.  You're not meant to use it for anything in  the actual game.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

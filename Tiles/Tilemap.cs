@@ -26,9 +26,8 @@ namespace EntityZero.Tiles
 		/* This is a grid of rectangles which don't necessarily have any sprites attached to them.
 		 * They could just be a grid of colliders for example. */
 		public Rectangle[][] tilesGrid { get; set; } 
-		/*This is an array of positions for the tiles which actually have sprites to be drawn to.
-		 */
-		public MonoGame.Aseprite.Sprite[][] spritesGrid { get; set; }
+	
+	
 
 		public Tilemap(AsepriteFile aseprite, Point tileSize) 
 		{
@@ -72,41 +71,9 @@ namespace EntityZero.Tiles
 			}
 
 			
-			
 		}
 
-		public void CreateSpriteGrid(int[][] data)
-		{
-			spritesGrid = new MonoGame.Aseprite.Sprite[data.Length][];
-			Debug.Print("Creating a sprites grid....");
-			//it should take the parsed data2d array and create an array of sprites if it matches an index in the 
-			for (int j = 0; j < data.Length; j++)
-			{
-				MonoGame.Aseprite.Sprite[] spritesRow = new MonoGame.Aseprite.Sprite[data[j].Length];
-				for(int i =0; i <= data[j].Length; i++)
-				{
-
-					if ( i < data[j].Length)
-					{
-						if(data[j][i] > -1)
-						{
-							spritesRow[i] = tileset[data[j][i]];
-							Debug.Print("the index isn't -1");
-						}
-						
-					}
-				   
-					if(i == data[j].Length)
-					{
-						spritesGrid[j] = spritesRow;
-					}
-				}
-
-
-
-			}
-		}
-
+		
 		public void DrawSprites(int[][] data, SpriteBatch spriteBatch)
 		{
 			for(int j =  0; j < data.Length;j++)

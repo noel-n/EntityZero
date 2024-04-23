@@ -1,0 +1,22 @@
+Explaining OgmoFile.cs
+
+I put a bunch of classes in this one file because I didn't want to be making different files
+each time I wanted a new class. It represents one Ogmo JSON File and it parses that file
+into  data we can use.
+
+If you watched Alex's OGMO video he did something similar, I super recommend that you check it out:
+https://www.youtube.com/watch?v=mh_eG-VMeis
+
+If you haven't parsed JSON with c# before then there are basically 2 options, System.Text.Json and 
+Newtonsoft.Json. I used System.Text.Json cuz it's apperently faster. If you wanna understand the code in this file
+even though you don't really need to then you can read this article which was like super helpful:
+https://kevsoft.net/2021/12/19/traversing-json-with-jsondocument.html
+
+
+OK! now I'm gonna explain how to use an Ogmo file and this class to put your level in a game. 
+First you create an instance of OgmoFile and supply the level's filename and then you can access all the data 
+in the JSON. 
+
+If you needed the data2D array from a Tile Layer in Ogmo what you would do is something like
+myOgmoFile.gridLayers[0].data2D. I admit it that it kind of sucks to have to get a layer by index but I'll 
+think of a better way later. 
