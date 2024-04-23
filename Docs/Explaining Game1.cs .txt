@@ -1,0 +1,4 @@
+Explaining Game1.cs 
+
+Sooo like, Game1.cs is the main class for any monogame project and like right now it's super messy. 
+I think that before we can organise y'all need to be up to speed on the progress I've made so far. 

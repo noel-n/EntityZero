@@ -2,7 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Aseprite;
+using System;
 using System.Diagnostics;
+using System.Runtime.Intrinsics.X86;
 using System.Security.Cryptography.X509Certificates;
 
 namespace EntityZero.Tiles
@@ -25,31 +27,31 @@ namespace EntityZero.Tiles
 
 		/* This is a grid of rectangles which don't necessarily have any sprites attached to them.
 		 * They could just be a grid of colliders for example. */
-		public Rectangle[][] tilesGrid { get; set; } 
-	
-	
+		public Rectangle[][] tilesGrid { get; set; }
 
-		public Tilemap(AsepriteFile aseprite, Point tileSize) 
+
+		// Funky fresh constructor for setting the tile size. It uses a point so that you can have rectangular tiles with a height that's different from width.
+		public Tilemap( Point tileSize) 
 		{
-			asepriteFile = aseprite;
-		
-            this.tileSize = tileSize;
-		
-		     tilesetFile =  aseprite.CreateTextureAtlas(Globals.Graphics);
-			
+			this.tileSize = tileSize;
 		}	
 
-		public void createTileset(){
+		//It takes an aseprite file and makes it into an array of Sprites that's stored in tileset[] , you're meant to use this if your Tilemap is visual
+		public void createTileset(AsepriteFile aseprite){ 
+			asepriteFile = aseprite;
+			tilesetFile = aseprite.CreateTextureAtlas(Globals.Graphics);
 			tileset = new MonoGame.Aseprite.Sprite[asepriteFile.FrameCount];
 			for (int i = 0; i < asepriteFile.FrameCount; i++) {
 				MonoGame.Aseprite.Sprite sprite = tilesetFile.CreateSprite(string.Format("{0} {1}", asepriteFile.Name, i));
 				tileset[i] = sprite;
 				Debug.Print(tileset[i].Name);
 			}
-		} 
-		public void CreateTilesGrid(string[][] grid2D)
+		}
+
+		// It takes a jagged array of strings and creates tiles where there are "1"s. Search for grid2D in  Stage 0.json to see the array its reading in-game. 
+		public void CreateTilesGrid(string[][] grid2D) 
 		{
-			
+
 			tilesGrid = new Rectangle[grid2D.Length][];
 			for(int j = 0; j < grid2D.Length; j++)
 			{
@@ -69,11 +71,11 @@ namespace EntityZero.Tiles
 					}
 				}
 			}
-
-			
 		}
 
-		
+		//It takes a jagged array of ints and draws different tiles based on their values. If you search for data2D in Stage0.json you'll see an array with a bunch of ints ranging from -1 to 1. 
+		// The -1s are empty space, the 0s are  all the blue tiles and the 1s are the grey tiles. It's based off their order in the tileset. The blue comes before grey so it's tileset[0] while grey is tileset[1]. 
+		// There are other tiles in greybox which I didn't use so that's why the range is so small. 
 		public void DrawSprites(int[][] data, SpriteBatch spriteBatch)
 		{
 			for(int j =  0; j < data.Length;j++)
@@ -93,7 +95,8 @@ namespace EntityZero.Tiles
 		
 		}
 
-		public void Draw(SpriteBatch spriteBatch,GraphicsDevice device) // It's location is gonna be (0,0)
+		// This function draws a non-visual grid just incase you wanted to see it for some reason. 
+		public void Draw(SpriteBatch spriteBatch,GraphicsDevice device) 
 		{
 			
 			Texture2D blankTexture = new Texture2D(device, 1, 1);
@@ -111,7 +114,9 @@ namespace EntityZero.Tiles
 		}
 	}
 
-	public class Tile // this class is pointless since Rectangles already have a position.
+
+	// this class is pointless since Rectangles already have a position. but it might be useful later so i'll keep it.
+	public class Tile 
 	{
 	
 

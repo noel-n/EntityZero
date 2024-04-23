@@ -103,10 +103,10 @@ namespace EntityZero
 
 			// Creating the TilemapObjects
 			Globals.Graphics = _graphics.GraphicsDevice;
-			tilemap = new Tiles.Tilemap(greybox, new Point(16, 16));
-			collidables = new Tiles.Tilemap(greybox, new Point(16, 16));
+			tilemap = new Tiles.Tilemap( new Point(16, 16));
+			collidables = new Tiles.Tilemap( new Point(16, 16));
 			
-			tilemap.createTileset();
+			tilemap.createTileset(greybox);
 
 			//Load the level file as an OgmoFile Object
 			StageZero = new OgmoFile("Stage 0.json");
@@ -174,12 +174,12 @@ namespace EntityZero
 			
 			//collidables.Draw(_spriteBatch, GraphicsDevice);
 
-			_spriteBatch.Draw(backgroundSprite, Vector2.Zero, Color.White);
-			player.Draw(_spriteBatch);
+			_spriteBatch.Draw(backgroundSprite, Vector2.Zero, Color.White); // This is an exampe of using the SpriteBatch class to draw stuff
+			player.Draw(_spriteBatch);// Entities also call spritebatch.Draw()
 			quote.Draw(_spriteBatch);
 
 			
-		    tilemap.DrawSprites(StageZero.tileLayers[0].data2d, _spriteBatch);
+		    tilemap.DrawSprites(StageZero.tileLayers[0].data2d, _spriteBatch); 
 		    
 		
 		

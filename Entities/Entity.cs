@@ -20,6 +20,8 @@ namespace EntityZero.Entities
 
 		public Sprite sprite { get; set; }
 
+
+		//I'm not sure exactly how I want to define entities yet. I think my team member should have a say in this since its super important
 		public Entity() { 
 
 
